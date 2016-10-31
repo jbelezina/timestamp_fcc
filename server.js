@@ -3,6 +3,7 @@
 let express = require('express'),
     bodyParser = require('body-parser'),
     parse = require('parse-date/silent'),
+    portNo = process.env.PORT || 8080,
     app = express();
     
 app.use(bodyParser.urlencoded());
@@ -48,6 +49,6 @@ app.get('/:timestamp', function (req, res) {
   
 });
 
-app.listen(8080, function () {
+app.listen(portNo, function () {
   console.log('Example app listening on port 8080!');
 });
