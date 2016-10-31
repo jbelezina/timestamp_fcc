@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <h1>Welcome to my new and shiny timestamp microservice built as part of a FreeCodeCamp backend dev challange</h1>
+    <p>Here is a list of user stories this thing should cover:</p>
+    <ol>
+        <li>I can pass a string as a parameter, and it will check to see whether that string contains either a unix timestamp or a natural language date (example: January 1, 2016)</li>
+        <li>If it does, it returns both the Unix timestamp and the natural language form of that date.</li>
+        <li>If it does not contain a date or Unix timestamp, it returns null for those properties.</li>
+    </ol>
+    <p>Sample usage:</p>
+    <ul>
+        <li> ... whatever the URL of this page is ... /December%2015,%202015</li>
+        <li> ... whatever the URL of this page is ... /1450137600</li>
+    </ul>
+    <p>Expected output:</p>
+    { "unix": 1450137600, "natural": "December 15, 2015" }
+  </body>
+</html>
