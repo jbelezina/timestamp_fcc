@@ -2,16 +2,18 @@
 
 let express = require('express'),
     bodyParser = require('body-parser'),
-    parse = require('parse-date/silent'),
+    parseDate = require('parse-date/silent'),
     portNo = process.env.PORT || 8080,
     app = express();
     
 app.use(bodyParser.urlencoded());
+
 app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
-
+  
   res.render('home');
+
 });
 
 app.get('/:timestamp', function (req, res) {
@@ -21,34 +23,25 @@ app.get('/:timestamp', function (req, res) {
       result;
   
   if (isNumber) {
-    var convertedToInt = parseInt(passedIn);
-    result = parse(convertedToInt);
+    result = new Date(parseInt(passedIn)*1000);
   } else {
-    result = parse(passedIn);
+    result = parseDate(passedIn)
   }
-  
-  if (result instanceof Date) {
     
-    let unix = result.getTime(),
-        locale = "en-us",
-        month = result.toLocaleString(locale, { month: "long" }),
-        day = result.getDate(),
-        year = result.getFullYear(),
-        natural = month + " " + day + ", " + year;
+  let unix = result.getTime().toString().slice(0,10),
+    locale = "en-us",
+    month = result.toLocaleString(locale, { month: "long" }),
+    day = result.getDate(),
+    year = result.getFullYear(),
+    natural = month + " " + day + ", " + year;
     
-    res.json({
-      "unix" : unix,
-      "natural" : natural
-    });
-  } else {
-     res.json({
-      "unix" : null,
-      "natural" : null
-    });
-  }
+  res.json({
+  "unix" : unix,
+  "natural" : natural
+  });
   
-});
-
+}); 
+    
 app.listen(portNo, function () {
-  console.log('Example app listening on port 8080!');
+  console.log('Example app listening on env port or 8080');
 });
