@@ -22,11 +22,13 @@ app.get('/:timestamp', function (req, res) {
       isNumber = /^[0-9.]+$/.test(passedIn),
       result;
   
-  if (isNumber) {
+  if (isNumber && passedIn.length < 14) {
     result = new Date(parseInt(passedIn)*1000);
   } else {
     result = parseDate(passedIn)
   }
+  
+  if (result instanceof Date) {
     
   let unix = result.getTime().toString().slice(0,10),
     locale = "en-us",
@@ -35,13 +37,20 @@ app.get('/:timestamp', function (req, res) {
     year = result.getFullYear(),
     natural = month + " " + day + ", " + year;
     
-  res.json({
-  "unix" : unix,
-  "natural" : natural
-  });
+    res.json({
+    "unix" : unix,
+    "natural" : natural
+    });
   
-}); 
+  } else {
+  res.json({
+  "unix" : null,
+  "natural" : null
+  });
+  }
     
+});
+  
 app.listen(portNo, function () {
   console.log('Example app listening on env port or 8080');
 });
